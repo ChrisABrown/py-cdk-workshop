@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\lambda",
     "\\py_cdk_workshop",
-    "\\tests",
     "\\tests\\unit"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\py_cdk_workshop\\py_cdk_workshop_stack.py",
   "PreviewInSolutionExplorer": false
 }

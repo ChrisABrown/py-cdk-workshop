@@ -4,6 +4,7 @@ from constructs import Construct
 from aws_cdk import (
     Stack,
    aws_lambda as _lambda,
+   aws_apigateway as apigw,
 )
 
 
@@ -17,4 +18,9 @@ class PyCdkWorkshopStack(Stack):
             runtime = _lambda.Runtime.PYTHON_3_9,
             code = _lambda.Code.from_asset('lambda'),
             handler = 'hello.handler',
+            )
+
+        apigw.LambdaRestApi(
+            self, 'Endpoint',
+            handler = my_lambda,
             )
