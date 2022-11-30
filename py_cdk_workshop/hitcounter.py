@@ -1,5 +1,3 @@
-from msilib.schema import Environment
-from typing_extensions import runtime
 from constructs import Construct
 from aws_cdk import (
     aws_lambda as _lambda,
@@ -34,3 +32,6 @@ class HitCounter(Construct):
                 "HITS_TABLE_NAME": table.table_name,
             },
         )
+
+        table.grant_read_write_data(self._handler)
+        downstream.grant_invoke(self._handler)

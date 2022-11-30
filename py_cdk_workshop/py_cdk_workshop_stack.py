@@ -1,5 +1,3 @@
-from cgitb import handler
-from pyclbr import Function
 from constructs import Construct
 from aws_cdk import (
     Stack,
@@ -11,8 +9,8 @@ from .hitcounter import HitCounter
 
 
 class PyCdkWorkshopStack(Stack):
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
-        super().__init__(scope, construct_id, **kwargs)
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
+        super().__init__(scope, id, **kwargs)
 
         my_lambda = _lambda.Function(
             self,
@@ -22,14 +20,14 @@ class PyCdkWorkshopStack(Stack):
             handler="hello.handler",
         )
 
+        hello_with_counter = HitCounter(
+            self,
+            "HelloHitHandler",
+            downstream=my_lambda,
+        )
+
         apigw.LambdaRestApi(
             self,
             "Endpoint",
             handler=hello_with_counter._handler,
-        )
-
-        hello_with_counter = HitCounter(
-            self,
-            "HitCountHandler",
-            downstream=my_lambda,
         )
