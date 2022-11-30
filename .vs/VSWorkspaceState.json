@@ -1,7 +1,16 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
     ""
   ],
   "SelectedNode": "\\C:\\Users\\christophebr\\py-cdk-workshop",
+=======
+    "",
+    "\\py_cdk_workshop",
+    "\\tests",
+    "\\tests\\unit"
+  ],
+  "SelectedNode": "\\.gitignore",
+>>>>>>> 3ce3f16 (Added all directores and files needed to edit code)
   "PreviewInSolutionExplorer": false
 }
