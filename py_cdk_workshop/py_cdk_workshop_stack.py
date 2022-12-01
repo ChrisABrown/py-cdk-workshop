@@ -37,5 +37,6 @@ class PyCdkWorkshopStack(Stack):
         TableViewer(
             self, 'ViewHitCounter',
             title="Hits Table",
+            sort_by="-hits",
             table=hello_with_counter.table,
         )
