@@ -1,7 +1,7 @@
 from constructs import Construct
 from aws_cdk import (
     aws_lambda as _lambda,
-    aws_dynamodb as ddb,
+    aws_dynamodb as ddb, RemovalPolicy,
 )
 
 
@@ -25,7 +25,8 @@ class HitCounter(Construct):
             "Hits",
             read_capacity=read_capacity,
             partition_key={"name": "path", "type": ddb.AttributeType.STRING},
-            encryption=ddb.TableEncryption.AWS_MANAGED
+            encryption=ddb.TableEncryption.AWS_MANAGED,
+            removal_policy=RemovalPolicy.DESTROY
 
         )
 
