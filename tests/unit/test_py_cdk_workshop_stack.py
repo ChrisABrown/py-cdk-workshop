@@ -1,3 +1,4 @@
+import pytest
 from aws_cdk import (
     Stack,
     aws_lambda as _lambda,
@@ -38,7 +39,38 @@ def test_lambda_has_env_vars():
                                       })
     assert envCapture.as_object() == {
         "Variables": {
-            "DOWNSTREAM_FUNCTION_NAME": {"Ref": "TestFunctionXXX"},
-            "HITS_TABLE_NAME": {"Ref": "HitConterHitsXXX"},
+            "DOWNSTREAM_FUNCTION_NAME": {"Ref": "TestFunction22AD90FC"},
+            "HITS_TABLE_NAME": {"Ref": "HitCounterHits079767E5"},
         },
     }
+
+
+def test_dynamodb_with_encryption():
+    stack = Stack()
+    HitCounter(stack, "HitCounter",
+               downstream=_lambda.Function(stack, "TestFunction",
+                                           runtime=_lambda.Runtime.PYTHON_3_9,
+                                           code=_lambda.Code.from_asset("lambda"),
+                                           handler="hello.handler"
+                                           )
+               )
+    template = assertions.Template.from_stack(stack)
+    template.has_resource_properties("AWS::DynamoDB::Table",
+                                     {
+                                         "SSESpecification": {
+                                             "SSEEnabled": True,
+                                         }
+                                     })
+
+
+def test_dynamodb_raises():
+    stack = Stack()
+    with pytest.raises(Exception):
+        HitCounter(stack, "HitCounter",
+                   downstream=_lambda.Function(stack, "TestFunction",
+                                               runtime=_lambda.Runtime.PYTHON_3_9,
+                                               code=_lambda.Code.from_asset("lambda"),
+                                               handler="hello.handler",
+                                               ),
+                   read_capacity=1,
+                   )
