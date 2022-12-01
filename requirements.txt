@@ -1,4 +1,5 @@
-aws-cdk-lib==2.50.0
+aws-cdk-lib==2.53.0
 constructs>=10.0.0,<11.0.0
+cdk-dynamo-table-view==0.2.341
 
 boto3~=1.26.20
